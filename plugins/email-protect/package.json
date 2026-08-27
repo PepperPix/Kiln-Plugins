@@ -8,9 +8,11 @@
         "@droidsolutions-oss/semantic-release-update-file": "^1.4.0",
         "@semantic-release/changelog": "^7.0.0",
         "@semantic-release/git": "^11.0.1",
-        "semantic-release": "^25.0.9"
+        "semantic-release": "^25.0.9",
+        "semantic-release-monorepo": "^8.0.2"
     },
     "release": {
+        "extends": "semantic-release-monorepo",
         "branches": [
             "main",
             {
