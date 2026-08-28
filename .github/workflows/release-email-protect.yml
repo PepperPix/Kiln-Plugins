@@ -1,0 +1,60 @@
+name: Release Email Protect
+
+on:
+  push:
+    branches: ["main", "beta"]
+    paths: ["plugins/email-protect/**"]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  id-token: write
+
+jobs:
+  release:
+    name: Semantic Release (email-protect)
+    runs-on: ubuntu-22.04
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/beta') && vars.RELEASE_ENABLED == 'true'
+    defaults:
+      run:
+        working-directory: plugins/email-protect
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.CI_GITHUB_TOKEN }}
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'pnpm'
+          cache-dependency-path: 'plugins/email-protect/pnpm-lock.yaml'
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Install release tooling
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: NuGet login (OIDC → temp API key)
+        uses: NuGet/login@v1
+        id: nuget_login
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
+      - name: Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
+          NUGET_TOKEN: ${{ steps.nuget_login.outputs.NUGET_API_KEY }}
+        run: npx semantic-release

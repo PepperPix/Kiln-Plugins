@@ -1,0 +1,63 @@
+{
+    "name": "kiln-plugins-email-protect-release",
+    "version": "0.0.0-development",
+    "private": true,
+    "description": "Release tooling for the Kiln.Plugin.EmailProtect content-plugin.",
+    "devDependencies": {
+        "@droidsolutions-oss/semantic-release-nuget": "^2.0.1",
+        "@droidsolutions-oss/semantic-release-update-file": "^1.4.0",
+        "@semantic-release/changelog": "^7.0.0",
+        "@semantic-release/git": "^11.0.1",
+        "semantic-release": "^25.0.9",
+        "semantic-release-monorepo": "^8.0.2"
+    },
+    "release": {
+        "extends": "semantic-release-monorepo",
+        "branches": [
+            "main",
+            {
+                "name": "beta",
+                "prerelease": true
+            }
+        ],
+        "tagFormat": "email-protect-v${version}",
+        "plugins": [
+            "@semantic-release/commit-analyzer",
+            "@semantic-release/release-notes-generator",
+            "@semantic-release/changelog",
+            [
+                "@droidsolutions-oss/semantic-release-update-file",
+                {
+                    "files": [
+                        {
+                            "path": [
+                                "Kiln.Plugin.EmailProtect.nuspec"
+                            ],
+                            "type": "xml",
+                            "replacements": [
+                                {
+                                    "key": "version",
+                                    "value": "${nextRelease.version}"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "@droidsolutions-oss/semantic-release-nuget",
+            [
+                "@semantic-release/git",
+                {
+                    "assets": [
+                        "CHANGELOG.md",
+                        "Kiln.Plugin.EmailProtect.nuspec"
+                    ],
+                    "message": "chore(release): email-protect ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+                }
+            ],
+            "@semantic-release/github"
+        ],
+        "projectPath": "Kiln.Plugin.EmailProtect.nuspec",
+        "npmPublish": false
+    }
+}
