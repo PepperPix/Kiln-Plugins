@@ -1,5 +1,7 @@
 name: email-protect
-version: "1.0.0"
+version: "1.1.0"
 description: "JS-Obfuskierung fuer im Content per data-Attribut hinterlegte E-Mail-Adressen (Scraper-Schutz)."
 slots:
   - body_end
+shortcodes:
+  - email
