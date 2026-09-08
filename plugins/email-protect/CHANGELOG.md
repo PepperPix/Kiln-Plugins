@@ -1,3 +1,10 @@
+# [kiln-plugins-email-protect-release-v1.1.1](https://github.com/PepperPix/Kiln-Plugins/compare/email-protect-v1.1.0...email-protect-v1.1.1) (2026-09-08)
+
+
+### Bug Fixes
+
+* **email-protect:** include shortcodes in nuget package ([#3](https://github.com/PepperPix/Kiln-Plugins/issues/3)) ([a0ecdc2](https://github.com/PepperPix/Kiln-Plugins/commit/a0ecdc23a3b453607172df25b142f02fae21625e))
+
 # [kiln-plugins-email-protect-release-v1.1.0](https://github.com/PepperPix/Kiln-Plugins/compare/email-protect-v1.0.0...email-protect-v1.1.0) (2026-09-06)
 
 
