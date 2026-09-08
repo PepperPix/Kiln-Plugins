@@ -12,6 +12,7 @@
   <files>
     <file src="plugin.yaml" target="content/plugin.yaml" />
     <file src="slots/body_end.html" target="content/slots/body_end.html" />
+    <file src="shortcodes/email.html" target="content/shortcodes/email.html" />
     <file src="static/email-protect.js" target="content/static/email-protect.js" />
   </files>
 </package>
